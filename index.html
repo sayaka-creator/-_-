@@ -83,7 +83,7 @@ body{
 .sec-head{display:flex;align-items:baseline;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .sec-head h2{font-family:"Shippori Mincho B1","Hiragino Mincho ProN",serif;font-size:1.02rem;font-weight:700;margin:0;color:var(--ink);letter-spacing:.06em}
 .sec-head .eyebrow{font-size:.68rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
-.sec-head .note{font-size:.76rem;color:var(--muted);margin-left:auto;text-align:right}
+.sec-head .note{font-size:.76rem;color:var(--muted);margin-left:auto;text-align:right;display:flex;align-items:center;gap:10px;justify-content:flex-end;flex-wrap:wrap}
 
 /* ---------- compact strip (入力タブ) ---------- */
 .strip{
@@ -159,7 +159,9 @@ table.grid th,table.grid td{padding:8px 12px;border-bottom:1px solid var(--line)
 table.grid thead th{background:#f7f9fa;color:var(--ink-2);font-weight:700;font-size:.78rem;letter-spacing:.06em;white-space:nowrap}
 table.grid td.n,table.grid th.n{text-align:right}
 table.grid tbody tr:hover{background:#fbfcfd}
-.cat-name{font-weight:500;color:var(--ink-2);white-space:nowrap}
+.cat-name{font-weight:500;color:var(--ink-2);white-space:normal}
+.cat-sub{display:block;font-size:.68rem;line-height:1.5;color:var(--muted);letter-spacing:.02em;margin-top:1px}
+.cat-sub b{color:var(--accent);font-weight:700}
 .cell-input{
   width:100%;min-width:110px;padding:8px 10px;font-family:inherit;font-size:.92rem;
   border:1px solid var(--input-line);background:var(--input);border-radius:3px;
@@ -221,6 +223,52 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
 .footnote b{color:var(--ink-2)}
 .footnote ul{margin:6px 0 0;padding-left:18px}
 
+/* ---------- 売価表 ---------- */
+.pr-lead{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-top:18px;padding:11px 16px;background:#fff;border:1px solid var(--line);
+  border-radius:var(--radius);font-size:.8rem;color:var(--muted);
+}
+.pr-lead b{color:var(--ink)}
+.pr-lead .sp{flex:1}
+.rate-sec{border:1px solid var(--line);border-radius:5px;background:#fff;margin:18px 0 0;overflow:hidden}
+.rate-sec-head{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--t-bg);flex-wrap:wrap}
+.rate-sec-head .nm{font-family:"Shippori Mincho B1",serif;font-size:1.02rem;font-weight:700;color:var(--t-ink);letter-spacing:.08em}
+.rate-sec-head .bdg{margin-left:auto;background:#fff;color:var(--t-ink);border:1px solid var(--t-ink);border-radius:99px;font-size:.68rem;font-weight:700;padding:2px 11px;letter-spacing:.04em;white-space:nowrap}
+.rate-sec-head .bdg.is-btn{background:var(--t-ink);color:#fff;border-color:var(--t-ink);cursor:pointer;font-family:inherit}
+.rate-sec-body{padding:14px 16px 2px}
+.rate-card{border:1px solid var(--line);border-radius:4px;margin-bottom:14px;overflow:hidden;background:#fff}
+.rate-card-head{
+  width:100%;display:flex;align-items:center;gap:10px;padding:9px 13px;
+  background:#fbfcfd;border:none;border-bottom:1px solid var(--line);
+  font-family:inherit;cursor:pointer;text-align:left;
+}
+.rate-card-head:hover{background:#f3f6f9}
+.rate-card-head .cn{font-size:.9rem;font-weight:700;color:var(--ink)}
+.rate-card-head .cnt{font-size:.7rem;color:var(--muted);border:1px solid var(--line-2);border-radius:2px;padding:0 5px}
+.rate-card-head .arw{margin-left:auto;color:var(--muted);font-size:.78rem;transition:transform .15s}
+.rate-card.is-closed .arw{transform:rotate(-90deg)}
+.rate-card.is-closed .rate-body{display:none}
+.rate-item{display:flex;align-items:flex-start;gap:14px;padding:8px 14px;border-bottom:1px dashed var(--line)}
+.rate-item:last-child{border-bottom:none}
+.rate-item .pi{font-size:.88rem;color:var(--ink-2);min-width:0}
+.rate-item .pv{margin-left:auto;text-align:right;white-space:nowrap;font-size:.9rem;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;flex:0 0 auto}
+.rate-note{display:block;font-size:.73rem;line-height:1.6;color:var(--minus-ink);margin-top:2px}
+.rate-warn{margin:0;padding:7px 14px 10px;font-size:.76rem;line-height:1.6;color:var(--minus-ink);background:#fffdfa;border-top:1px solid var(--line)}
+.rate-note.inline{display:block}
+.pr-alert{margin-top:18px;background:#fdf8e3;border:1px solid #e6d9a0;border-radius:5px;padding:13px 18px}
+.pr-alert h3{margin:0 0 8px;font-size:.88rem;color:#8a6216;letter-spacing:.06em}
+.pr-alert ul{margin:0;padding-left:0;list-style:none}
+.pr-alert li{position:relative;padding:4px 0 4px 24px;font-size:.85rem;color:#4a4132}
+.pr-alert li::before{content:"✓";position:absolute;left:2px;top:4px;color:#2f7d4a;font-weight:700}
+.theme-kitte{--t-bg:#fdeef3;--t-ink:#a83a5f}
+.theme-kinken{--t-bg:#fdf4e0;--t-ink:#8a6216}
+.theme-prec{--t-bg:#fbeee2;--t-ink:#8a5322}
+.theme-kizoku{--t-bg:#eef0fa;--t-ink:#4a4f8f}
+.theme-genko{--t-bg:#e8f5ee;--t-ink:#1e6b47}
+.theme-brand{--t-bg:#f4edfb;--t-ink:#6a3f8f}
+.theme-other{--t-bg:#eaf5ec;--t-ink:#1f6b3f}
+
 @media (max-width:820px){
   .summary{grid-template-columns:1fr}
   .summary-left{border-right:none;border-bottom:1px solid var(--line)}
@@ -230,13 +278,19 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
   .cell-input{min-width:76px}
   .table-scroll{max-height:none}
   .tab{padding:11px 16px;font-size:.88rem}
+  .rate-item{flex-wrap:wrap;gap:6px}
+  .rate-item .pv{margin-left:0;text-align:left}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{
   body{background:#fff}
-  .appbar .btns,.entry-tools,.guide-toggle,.storage,.footnote,.tabs,.strip{display:none!important}
+  .appbar .btns,.entry-tools,.guide-toggle,.storage,.footnote,.tabs,.strip,.pr-tools{display:none!important}
   .card{border-color:#999;break-inside:avoid}
   .table-scroll{max-height:none;overflow:visible}
+  .rate-card.is-closed .rate-body{display:block!important}
+  .rate-sec,.rate-card{break-inside:avoid}
+  .rate-card-head{background:#fff;cursor:default}
+  .rate-sec-head .bdg.is-btn{display:none}
 }
 </style>
 </head>
@@ -261,6 +315,7 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
 <nav class="tabs">
   <button class="tab is-on" data-pane="entry" onclick="switchTab('entry')">入力</button>
   <button class="tab" data-pane="report" onclick="switchTab('report')">集計結果<span class="dot num" id="tabDot">0</span></button>
+  <button class="tab" data-pane="price" onclick="switchTab('price')">売価表</button>
 </nav>
 
 <div class="wrap">
@@ -287,6 +342,8 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
       <div class="guide-body" id="guideBody">
         <ol class="steps">
           <li>黄色のセルに <b>売価</b> と <b>買取金額</b> を入力します。カテゴリーごとに入力すると <b>粗利（売価−買取）</b> が自動計算されます。</li>
+          <li>カテゴリー名の下に、そのカテゴリーの <b>内訳と売価率の目安</b> を表示しています（例：切手＝印紙・ハガキ／額面50%）。詳しい基準は <b>「売価表」タブ</b> で確認できます。</li>
+          <li><b>「切手」には切手・ハガキ・収入印紙を含めて入力</b>してください（登記印紙は買取不可）。</li>
           <li>一人分の入力が終わったら <b>「次のお客様 ▶」</b> で次へ進みます。上の「お客様」から番号を選んで移動することもできます。</li>
           <li>入力すると同時に、上の簡易集計と <b>「集計結果」タブ</b> が自動で更新されます。</li>
           <li><b>プラス客／マイナス客</b> は、そのお客様の <b>合計粗利（売価合計 − 買取合計）</b> がプラスかマイナスかで判定します。カテゴリー単位ではありません。</li>
@@ -300,7 +357,10 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
       <div class="sec-head">
         <span class="eyebrow">Entry</span>
         <h2>入力</h2>
-        <div class="note">お客様 01 〜 50</div>
+        <div class="note">
+          <span>お客様 01 〜 50</span>
+          <button class="btn-sm" onclick="switchTab('price')">売価表を見る ▶</button>
+        </div>
       </div>
       <div class="entry-tools">
         <label for="custSelect">お客様</label>
@@ -348,6 +408,299 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
       <button class="btn-sm" onclick="exportJSON()">バックアップ保存</button>
       <button class="btn-sm" onclick="document.getElementById('importFile').click()">バックアップ読込</button>
       <input type="file" id="importFile" accept="application/json,.json" style="display:none" onchange="importJSON(this)">
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       売価表
+       ============================================================ -->
+  <div class="pane" id="pane-price">
+
+    <div class="pr-lead">
+      <span><b>売価表</b>　カテゴリー別の品目・売価率の基準一覧です。見出しをクリックすると開閉できます。</span>
+      <span class="sp"></span>
+      <button class="btn-sm pr-tools" onclick="openAllRates()">すべて開く</button>
+      <button class="btn-sm pr-tools" onclick="window.print()">この表を印刷</button>
+    </div>
+
+    <!-- 切手 -->
+    <section class="rate-sec theme-kitte">
+      <div class="rate-sec-head">
+        <span class="nm">切手</span>
+        <span class="bdg">印紙・ハガキ</span>
+      </div>
+      <div class="rate-sec-body">
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">切手・ハガキ・収入印紙</span>
+            <span class="cnt">3品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">切手額面</span><span class="pv">50%</span></div>
+            <div class="rate-item"><span class="pi">ハガキ額面</span><span class="pv">50%</span></div>
+            <div class="rate-item"><span class="pi">収入印紙額面</span><span class="pv">50%</span></div>
+          </div>
+          <p class="rate-warn">※登記印紙は買取不可　間違え注意</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 金券 -->
+    <section class="rate-sec theme-kinken">
+      <div class="rate-sec-head">
+        <span class="nm">金券</span>
+        <span class="bdg">金券・テレカ</span>
+      </div>
+      <div class="rate-sec-body">
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">金券・テレフォンカード</span>
+            <span class="cnt">2品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">金券額面</span><span class="pv">90%</span></div>
+            <div class="rate-item"><span class="pi">テレフォンカード</span><span class="pv">50度：¥350 ／ 105度：¥700</span></div>
+          </div>
+          <p class="rate-warn">※105度以上は買取不可</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- プレ貨 -->
+    <section class="rate-sec theme-prec">
+      <div class="rate-sec-head">
+        <span class="nm">プレ貨</span>
+        <span class="bdg">金貨・銀貨</span>
+      </div>
+      <div class="rate-sec-body">
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">プレミア貨幣</span>
+            <span class="cnt">4品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">100円銀貨</span><span class="pv">¥500</span></div>
+            <div class="rate-item"><span class="pi">1,000円銀貨</span><span class="pv">¥4,000</span></div>
+            <div class="rate-item"><span class="pi">日本法定通貨／古銭／銀貨／金貨</span><span class="pv">別途グループ真贋　g×100円</span></div>
+            <div class="rate-item"><span class="pi">近代金貨</span><span class="pv">K24×g×90%（100円以下切捨）</span></div>
+          </div>
+          <p class="rate-warn">※10万円御即位・御在位／5万円御成婚／1万円金貨</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 貴金属 -->
+    <section class="rate-sec theme-kizoku">
+      <div class="rate-sec-head">
+        <span class="nm">貴金属</span>
+        <span class="bdg">地金・金歯</span>
+      </div>
+      <div class="rate-sec-body">
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">貴金属</span>
+            <span class="cnt">4品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item">
+              <span class="pi">貴金属（アクセサリー等）
+                <span class="rate-note">※金プラチナ100円以下／銀10円以下切捨て</span>
+              </span>
+              <span class="pv">GOLDS相場表</span>
+            </div>
+            <div class="rate-item"><span class="pi">金歯</span><span class="pv">K10相場</span></div>
+            <div class="rate-item"><span class="pi">あとK</span><span class="pv">相場の半分</span></div>
+            <div class="rate-item">
+              <span class="pi">チャン金
+                <span class="rate-note">※必ずしも刻印通りではない　千足金・万足金：K24／足金K22／足赤K23</span>
+              </span>
+              <span class="pv">G相談</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 現行銭 -->
+    <section class="rate-sec theme-genko">
+      <div class="rate-sec-head">
+        <span class="nm">現行銭</span>
+        <span class="bdg">額面100%</span>
+      </div>
+      <div class="rate-sec-body">
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">現行銭</span>
+            <span class="cnt">1品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">現行銭額面</span><span class="pv">100%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ブランド -->
+    <section class="rate-sec theme-brand">
+      <div class="rate-sec-head">
+        <span class="nm">ブランド</span>
+        <span class="bdg">時計・バッグ・小物</span>
+      </div>
+      <div class="rate-sec-body">
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">時計</span>
+            <span class="cnt">3品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">NB時計</span><span class="pv">¥0</span></div>
+            <div class="rate-item"><span class="pi">SEIKO／CITIZEN／G-SHOCK</span><span class="pv">¥0（まとめ品記載）</span></div>
+            <div class="rate-item"><span class="pi">5,000円以上時計</span><span class="pv">メルカリ／ヤフオク売値4割</span></div>
+          </div>
+        </div>
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">バッグ</span>
+            <span class="cnt">2品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">NBバッグ</span><span class="pv">¥0</span></div>
+            <div class="rate-item"><span class="pi">ブランドバック</span><span class="pv">GDで値踏み</span></div>
+          </div>
+        </div>
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">ブランドジュエリー／小物</span>
+            <span class="cnt">1品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">その他ジュエリー・財布・小物</span><span class="pv">GDで値踏み</span></div>
+          </div>
+        </div>
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">ブランドジュエリー</span>
+            <span class="cnt">2品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">Nina Ricci等ブランドメッキ</span><span class="pv">¥0</span></div>
+            <div class="rate-item"><span class="pi">スワロフスキー</span><span class="pv">¥100</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- その他 -->
+    <section class="rate-sec theme-other">
+      <div class="rate-sec-head">
+        <span class="nm">その他</span>
+        <span class="bdg">カメラ・ライター・万年筆ほか</span>
+      </div>
+      <div class="rate-sec-body">
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">カメラ（デジタル機器含む）</span>
+            <span class="cnt">4品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item">
+              <span class="pi">ガラケー／スマホ
+                <span class="rate-note">※バッテリーと本体分けて（裏蓋はゴミへ）</span>
+              </span>
+              <span class="pv">¥500 ／ ¥100</span>
+            </div>
+            <div class="rate-item">
+              <span class="pi">フィルム／一眼レフ／レンズ
+                <span class="rate-note">※充電器・バッテリーがない場合は、箱は処分</span>
+              </span>
+              <span class="pv">¥100</span>
+            </div>
+            <div class="rate-item">
+              <span class="pi">デジカメ
+                <span class="rate-note">※充電器・バッテリーがない場合は、箱は処分</span>
+              </span>
+              <span class="pv">¥1,000</span>
+            </div>
+            <div class="rate-item">
+              <span class="pi">5,000円以上カメラ
+                <span class="rate-note">※メルカリの売価や販売価格の記載は不要</span>
+              </span>
+              <span class="pv">メルカリ／ヤフオク売値4割</span>
+            </div>
+          </div>
+        </div>
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">ライター</span>
+            <span class="cnt">3品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">ZIPPO（高額品はG相談）</span><span class="pv">¥500</span></div>
+            <div class="rate-item"><span class="pi">Cartier／dunhill等ライター</span><span class="pv">¥5,000</span></div>
+            <div class="rate-item"><span class="pi">S.T. Dupont</span><span class="pv">¥10,000</span></div>
+          </div>
+        </div>
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">万年筆・ペン</span>
+            <span class="cnt">3品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item">
+              <span class="pi">万年筆ペン先地金　0.2g計算
+                <span class="rate-note">※解体NG</span>
+              </span>
+              <span class="pv">解体❌（地金計算）</span>
+            </div>
+            <div class="rate-item"><span class="pi">モンブラン・Parker・ペリカン</span><span class="pv">GDで値踏みする</span></div>
+            <div class="rate-item"><span class="pi">NB万年筆／ボールペン</span><span class="pv">¥0</span></div>
+          </div>
+        </div>
+        <div class="rate-card">
+          <button class="rate-card-head" onclick="toggleRate(this)">
+            <span class="cn">骨董・その他</span>
+            <span class="cnt">4品目</span>
+            <span class="arw">∨</span>
+          </button>
+          <div class="rate-body">
+            <div class="rate-item"><span class="pi">着物</span><span class="pv">¥0</span></div>
+            <div class="rate-item"><span class="pi">骨董品（無銘の壺・皿など）</span><span class="pv">基本 ¥0</span></div>
+            <div class="rate-item"><span class="pi">メッキアクセサリー</span><span class="pv">¥0</span></div>
+            <div class="rate-item"><span class="pi">古銭／外貨まとめ</span><span class="pv">¥0</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 重要注意事項 -->
+    <div class="pr-alert">
+      <h3>査定時の重要注意事項</h3>
+      <ul>
+        <li>GD値踏み真贋の最低売価計算を基本とすること</li>
+        <li>役員相談：相見積もり額が高い場合、買えない場合</li>
+      </ul>
+    </div>
+
+    <div class="footnote" style="margin-top:16px">
+      <b>売価表について</b>
+      <ul>
+        <li>この表は現場の <b>売価率・買取基準</b> をカテゴリー別にまとめたものです。入力のときの目安としてご利用ください。</li>
+        <li>「切手」は <b>切手・ハガキ・収入印紙</b> をまとめたカテゴリーです（<b>登記印紙は買取不可</b>）。</li>
+        <li>「GDで値踏み」は現物の真贋・状態を確認しての個別判断、<b>「G相談」</b> は上長・本部への相談案件です。</li>
+      </ul>
     </div>
 
   </div>
@@ -484,6 +837,16 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
    ============================================================ */
 const CUSTOMER_COUNT = 50;                                  // お客様の人数（ここを変えれば増減できます）
 const CATEGORIES = ['切手','金券','プレ貨','貴金属','現行銭','ブランド','その他'];
+// カテゴリー名の下に出る内訳・売価率の目安（売価表タブと対応）
+const CAT_SUB = {
+  '切手'    : '印紙・ハガキ／額面50%',
+  '金券'    : '金券・テレカ／額面90%',
+  'プレ貨'  : '金貨・銀貨／品目別',
+  '貴金属'  : '地金・金歯／相場',
+  '現行銭'  : '額面100%',
+  'ブランド': '時計・バッグ・小物',
+  'その他'  : 'カメラ・ライター・万年筆ほか'
+};
 const STORE_KEY = 'saiji_kaitori_daily_v3';
 
 /* ============================================================
@@ -555,9 +918,20 @@ function switchTab(name){
 let paneBeforePrint = 'entry';
 window.addEventListener('beforeprint', ()=>{
   paneBeforePrint = document.querySelector('.tab.is-on').dataset.pane;
+  if(paneBeforePrint==='price') return;          // 売価表はそのまま印刷
   if(paneBeforePrint!=='report') switchTab('report');
 });
-window.addEventListener('afterprint', ()=>{ if(paneBeforePrint!=='report') switchTab(paneBeforePrint); });
+window.addEventListener('afterprint', ()=>{ if(paneBeforePrint!=='report' && paneBeforePrint!=='price') switchTab(paneBeforePrint); });
+
+/* ============================================================
+   売価表（開閉）
+   ============================================================ */
+function toggleRate(btn){
+  btn.closest('.rate-card').classList.toggle('is-closed');
+}
+function openAllRates(){
+  document.querySelectorAll('#pane-price .rate-card').forEach(c=>c.classList.remove('is-closed'));
+}
 
 /* ============================================================
    描画：入力カード
@@ -569,7 +943,7 @@ function renderEntry(){
 
   document.getElementById('entryBody').innerHTML = CATEGORIES.map((cat,j)=>`
     <tr>
-      <td class="cat-name">${cat}</td>
+      <td class="cat-name">${cat}<span class="cat-sub">${CAT_SUB[cat]||''}</span></td>
       <td class="n"><input type="number" class="cell-input" inputmode="numeric" step="1" min="0"
             data-j="${j}" data-f="sell" value="${c.cats[j].sell}" placeholder="0"></td>
       <td class="n"><input type="number" class="cell-input" inputmode="numeric" step="1" min="0"
@@ -673,7 +1047,7 @@ function recalc(){
     for(let i=0;i<CUSTOMER_COUNT;i++){ s += n(state.customers[i].cats[j].sell); b += n(state.customers[i].cats[j].buy); }
     const p = s-b, k = judge(p);
     return `<tr>
-      <td class="cat-name">${cat}</td>
+      <td class="cat-name">${cat}<span class="cat-sub">${CAT_SUB[cat]||''}</span></td>
       <td class="n num">${yen(s)}</td>
       <td class="n num">${yen(b)}</td>
       <td class="n num profit-cell ${k==='p'?'p':(k==='m'?'m':'')}">${yen(p)}</td>
@@ -807,13 +1181,13 @@ function exportCSV(){
   lines.push([q('マイナス粗利'), g.minusP, q('マイナス客数'), g.minusN].join(','));
   lines.push('');
   lines.push(['カテゴリー別集計'].map(q).join(','));
-  lines.push(['カテゴリー','売価','買取金額','粗利'].map(q).join(','));
+  lines.push(['カテゴリー','内訳／売価率','売価','買取金額','粗利'].map(q).join(','));
   CATEGORIES.forEach((cat,j)=>{
     let s=0,b=0;
     for(let i=0;i<CUSTOMER_COUNT;i++){ s+=n(state.customers[i].cats[j].sell); b+=n(state.customers[i].cats[j].buy); }
-    lines.push([q(cat), s, b, s-b].join(','));
+    lines.push([q(cat), q(CAT_SUB[cat]||''), s, b, s-b].join(','));
   });
-  lines.push([q('合計'), g.sell, g.buy, g.profit].join(','));
+  lines.push([q('合計'), q(''), g.sell, g.buy, g.profit].join(','));
   lines.push('');
   lines.push(['お客様明細'].map(q).join(','));
   lines.push(['お客様No','お客様名','カテゴリー','売価','買取金額','粗利','判定'].map(q).join(','));
@@ -885,5 +1259,6 @@ updateSaveLabel();
 </script>
 
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
