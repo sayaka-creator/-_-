@@ -346,7 +346,7 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
           <li><b>「切手」には切手・ハガキ・収入印紙を含めて入力</b>してください（登記印紙は買取不可）。</li>
           <li>一人分の入力が終わったら <b>「次のお客様 ▶」</b> で次へ進みます。上の「お客様」から番号を選んで移動することもできます。</li>
           <li>入力すると同時に、上の簡易集計と <b>「集計結果」タブ</b> が自動で更新されます。</li>
-          <li><b>プラス客／マイナス客</b> は、そのお客様の <b>合計粗利（売価合計 − 買取合計）</b> がプラスかマイナスかで判定します。カテゴリー単位ではありません。</li>
+          <li><b>プラス客／マイナス客</b> は、そのお客様の <b>合計粗利（売価合計 − 買取金額合計）</b> で判定します。<b>0円以上はプラス客</b>、0円未満はマイナス客です（カテゴリー単位ではなく、お客様ごとの合計で判定）。</li>
           <li>入力内容は <b>お使いの端末・ブラウザに自動保存</b> されます。ページを閉じても、「リセット」を押さない限り残ります（詳しくは画面下の案内）。</li>
           <li>日付が変わったら <b>「リセット」</b> でクリアしてください。<b>「CSV出力」</b> でExcelに取り込めます。</li>
         </ol>
@@ -814,10 +814,10 @@ table.list td.no{color:var(--muted);font-variant-numeric:tabular-nums}
       <b>集計のきまり</b>
       <ul>
         <li><b>粗利</b>＝売価 − 買取金額（お客様ごと・カテゴリーごとに自動計算）</li>
-        <li><b>プラス客</b>＝合計粗利が 0円より大きいお客様／<b>マイナス客</b>＝合計粗利が 0円より小さいお客様（1名あたりの合計粗利で判定）</li>
+        <li><b>プラス客</b>＝合計粗利が <b>0円以上</b> のお客様（0円ちょうども含みます）／<b>マイナス客</b>＝合計粗利が 0円未満のお客様（1名あたりの合計粗利で判定）</li>
         <li><b>プラス粗利</b>＝プラス客の粗利の合計／<b>マイナス粗利</b>＝マイナス客の粗利の合計（マイナス表示）</li>
         <li><b>粗利合計</b>＝プラス粗利 ＋ マイナス粗利</li>
-        <li>合計粗利がちょうど 0円のお客様は、どちらの客数にも数えません。</li>
+        <li>未入力のお客様（1件も入力していないお客様）は、プラス客・マイナス客のどちらにも数えません。</li>
       </ul>
       <b>データの保存について</b>
       <ul>
@@ -900,7 +900,7 @@ const n = v => { const x = parseFloat(v); return isFinite(x) ? x : 0; };
 const yen = v => (v<0 ? '-' : '') + Math.abs(v).toLocaleString('ja-JP') + '円';
 const yen0 = v => v.toLocaleString('ja-JP');
 const pad = i => String(i+1).padStart(2,'0');
-const judge = p => p>0 ? 'p' : (p<0 ? 'm' : 'n');
+const judge = p => p < 0 ? 'm' : 'p';   // 0円以上はプラス客として判定
 function customerTotals(c){
   let sell=0, buy=0;
   c.cats.forEach(x=>{ sell += n(x.sell); buy += n(x.buy); });
@@ -984,8 +984,11 @@ function recalc(){
     const k = judge(t.profit);
     if(t.entered) entered++;
     gSell += t.sell; gBuy += t.buy; gProfit += t.profit;
-    if(t.profit>0){ plusProfit += t.profit; plusN++; }
-    else if(t.profit<0){ minusProfit += t.profit; minusN++; }
+    // 未入力のお客様はプラス／マイナスどちらにも数えない。合計粗利 0円 のお客様はプラス客に含める。
+    if(t.entered){
+      if(t.profit < 0){ minusProfit += t.profit; minusN++; }
+      else            { plusProfit  += t.profit; plusN++; }
+    }
     updateListRow(i, t, k);
   }
 
@@ -1012,7 +1015,7 @@ function recalc(){
 
   const badge = document.getElementById('custBadge');
   const bk = judge(t.profit);
-  badge.textContent = !t.entered ? '未入力' : (bk==='p' ? 'プラス客' : (bk==='m' ? 'マイナス客' : '粗利 0円'));
+  badge.textContent = !t.entered ? '未入力' : (bk==='m' ? 'マイナス客' : 'プラス客');
   badge.className = 'badge ' + (!t.entered ? 'n' : bk);
 
   // 本日集計
@@ -1045,12 +1048,12 @@ function recalc(){
   document.getElementById('catBody').innerHTML = CATEGORIES.map((cat,j)=>{
     let s=0,b=0;
     for(let i=0;i<CUSTOMER_COUNT;i++){ s += n(state.customers[i].cats[j].sell); b += n(state.customers[i].cats[j].buy); }
-    const p = s-b, k = judge(p);
+    const p = s-b, k = p>0 ? 'p' : (p<0 ? 'm' : '');
     return `<tr>
       <td class="cat-name">${cat}<span class="cat-sub">${CAT_SUB[cat]||''}</span></td>
       <td class="n num">${yen(s)}</td>
       <td class="n num">${yen(b)}</td>
-      <td class="n num profit-cell ${k==='p'?'p':(k==='m'?'m':'')}">${yen(p)}</td>
+      <td class="n num profit-cell ${k}">${yen(p)}</td>
     </tr>`;
   }).join('');
   document.getElementById('catFoot').innerHTML = `<tr class="cat-total">
@@ -1100,11 +1103,11 @@ function updateListRow(i, t, k){
   const set = (id, val, cls) => { const el = document.getElementById(id); el.textContent = val; el.className = cls; };
   set('rowsell-'+i, yen(t.sell), 'num' + (t.sell?'':' z'));
   set('rowbuy-'+i,  yen(t.buy),  'num' + (t.buy ?'' :' z'));
-  set('rowprofit-'+i, yen(t.profit), 'num ' + (!t.entered ? 'z' : (k==='p'?'p':(k==='m'?'m':''))));
+  set('rowprofit-'+i, yen(t.profit), 'num ' + (!t.entered ? 'z' : (k==='m'?'m':'p')));
   const j = document.getElementById('rowjudge-'+i);
   j.innerHTML = !t.entered ? '<span class="pill n">未入力</span>'
-              : (k==='p' ? '<span class="pill p">プラス</span>'
-              : (k==='m' ? '<span class="pill m">マイナス</span>' : '<span class="pill n">±0</span>'));
+              : (k==='m' ? '<span class="pill m">マイナス</span>'
+              : '<span class="pill p">プラス</span>');
   document.getElementById('row-'+i).classList.toggle('is-active', i===active);
 }
 
@@ -1196,7 +1199,7 @@ function exportCSV(){
     const t = customerTotals(c);
     if(!t.entered && !c.name) continue;
     const k = judge(t.profit);
-    const label = !t.entered ? '' : (k==='p'?'プラス客':(k==='m'?'マイナス客':'±0'));
+    const label = !t.entered ? '' : (k==='m'?'マイナス客':'プラス客');
     CATEGORIES.forEach((cat,j)=>{
       const s=n(c.cats[j].sell), b=n(c.cats[j].buy);
       if(!s && !b) return;
